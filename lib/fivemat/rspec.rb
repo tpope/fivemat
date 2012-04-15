@@ -2,6 +2,8 @@ require 'rspec/core/formatters/progress_formatter'
 
 module Fivemat
   class RSpec < ::RSpec::Core::Formatters::ProgressFormatter
+    include ElapsedTime
+
     def initialize(*)
       super
       @group_level = 0
@@ -12,6 +14,7 @@ module Fivemat
       if @group_level.zero?
         output.print "#{group.description} "
         @failure_output = []
+        @start_time = Time.now
       end
       @group_level += 1
     end
@@ -19,7 +22,9 @@ module Fivemat
     def example_group_finished(group)
       @group_level -= 1
       if @group_level.zero?
+        print_elapsed_time output, @start_time
         output.puts
+
         failed_examples.each_with_index do |example, index|
           if pending_fixed?(example)
             dump_pending_fixed(example, @index_offset + index)

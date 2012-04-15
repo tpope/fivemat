@@ -1,3 +1,5 @@
+require 'fivemat/elapsed_time'
+
 module Fivemat
   autoload :Cucumber, 'fivemat/cucumber'
   autoload :MiniTest, 'fivemat/minitest/unit'
