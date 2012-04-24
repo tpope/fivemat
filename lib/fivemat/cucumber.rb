@@ -23,6 +23,7 @@ module Fivemat
     def after_features(features)
       @io.puts
       print_stats(features, @options)
+      print_snippets(@options)
       print_passing_wip(@options)
     end
   end
