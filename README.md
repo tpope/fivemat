@@ -45,6 +45,8 @@ Start by adding `gem 'fivemat'` to your `Gemfile`.
 ### MiniTest
 
 Change `require 'minitest/autorun'` to `require 'fivemat/minitest/autorun'`.
+Or with Rails, add `require 'fiverun/minitest'` to
+`test/test_helper.rb`.
 
 ### RSpec
 
