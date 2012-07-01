@@ -2,8 +2,12 @@ require 'cucumber/formatter/progress'
 
 module Fivemat
   class Cucumber < ::Cucumber::Formatter::Progress
+    def label(feature)
+      feature.short_name
+    end
+
     def before_feature(feature)
-      @io.print "#{feature.short_name} "
+      @io.print "#{label(feature)} "
       @io.flush
       @exceptions = []
     end
