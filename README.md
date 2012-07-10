@@ -53,6 +53,10 @@ MiniTest. (Add `gem 'minitest'` to your Gemfile if it's not there already.)
 
 Add `--format Fivemat` to `.rspec`.
 
+### Guard
+
+Add `:cli => "--format Fivemat"` to `guard block options in Guardfile`
+
 ### Cucumber
 
 Add `--format Fivemat` to `cucumber.yml`.
