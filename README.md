@@ -38,6 +38,12 @@ Cucumber output:
     features/sign_out.feature .......
     features/sign_up.feature ...............................................
 
+Enable profiling by setting the `FIVEMAT_PROFILE` variable in the environment:
+
+    > FIVEMAT_PROFILE=1 rspec --format Fivemat
+    DoohickeyTest .... (0.27s)
+    KajiggerTest ..................................... (1.87s)
+
 ## Usage
 
 Start by adding `gem 'fivemat'` to your `Gemfile`.
