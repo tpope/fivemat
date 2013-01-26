@@ -2,6 +2,8 @@ require 'spec/runner/formatter/progress_bar_formatter'
 
 module Fivemat
   class Spec < ::Spec::Runner::Formatter::ProgressBarFormatter
+    include ElapsedTime
+
     def initialize(*)
       super
       @dumping = false
@@ -20,12 +22,14 @@ module Fivemat
         @last_root_example_group = example_group_proxy
         example_group_finished(example_group_proxy) unless @example_group_number == 1
         output.print "#{example_group_proxy.nested_descriptions.first} "
+        @start_time = Time.now
       end
 
       @last_nested_descriptions = example_group_proxy.nested_descriptions
     end
 
     def example_group_finished(example_group_proxy)
+      print_elapsed_time output, @start_time
       puts
 
       @failed_examples.each_with_index do |example, index|
