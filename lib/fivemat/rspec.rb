@@ -8,6 +8,7 @@ module Fivemat
       super
       @group_level = 0
       @index_offset = 0
+      @cumulative_failed_examples = []
     end
 
     def example_group_started(group)
@@ -34,6 +35,7 @@ module Fivemat
           dump_backtrace(example)
         end
         @index_offset += failed_examples.size
+        @cumulative_failed_examples += failed_examples
         failed_examples.clear
       end
     end
@@ -49,6 +51,11 @@ module Fivemat
     def dump_pending_fixed(example, index)
       output.puts "#{short_padding}#{index.next}) #{example.full_description} FIXED"
       output.puts blue("#{long_padding}Expected pending '#{example.metadata[:execution_result][:pending_message]}' to fail. No Error was raised.")
+    end
+
+    def dump_summary(*)
+      @failed_examples = @cumulative_failed_examples
+      super
     end
 
     def start_dump
