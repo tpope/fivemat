@@ -50,10 +50,12 @@ Start by adding `gem 'fivemat'` to your `Gemfile`.
 
 ### MiniTest
 
-Change `require 'minitest/autorun'` to `require 'fivemat/minitest/autorun'`.
-Or with Rails, add `require 'fivemat/minitest'` to
-`test/test_helper.rb`.  If it doesn't work, you may need a newer version of
-MiniTest. (Add `gem 'minitest'` to your Gemfile if it's not there already.)
+On MiniTest 5, it's loaded automatically as a plugin, and there's nothing else
+to do.  Otherwise, change `require 'minitest/autorun'` to
+`require 'fivemat/minitest/autorun'`.  Or with Rails, add
+`require 'fivemat/minitest'` to `test/test_helper.rb`.  If it doesn't work, you
+may need a newer version of MiniTest. (Add `gem 'minitest'` to your Gemfile if
+it's not there already.)
 
 ### RSpec
 
