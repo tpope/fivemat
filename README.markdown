@@ -41,8 +41,8 @@ Cucumber output:
 Enable profiling by setting the `FIVEMAT_PROFILE` variable in the environment:
 
     > FIVEMAT_PROFILE=1 rspec --format Fivemat
-    DoohickeyTest .... (0.27s)
-    KajiggerTest ..................................... (1.87s)
+    Doohickey .... (0.27s)
+    Kajigger ..................................... (1.87s)
 
 ## Usage
 
