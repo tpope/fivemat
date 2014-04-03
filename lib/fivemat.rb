@@ -8,7 +8,7 @@ module Fivemat
   autoload :Spec, 'fivemat/spec'
 
   def rspec3?
-    defined?(::RSpec) && ::RSpec::Core::Version::STRING >= '3.0.0'
+    defined?(::RSpec::Core) && ::RSpec::Core::Version::STRING >= '3.0.0'
   end
   module_function :rspec3?
 
