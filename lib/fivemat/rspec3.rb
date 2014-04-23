@@ -58,12 +58,12 @@ module Fivemat
     end
 
     def pending_fixed?(example)
-      example.execution_result.pending_fixed?
+      example.execution_result[:pending_fixed]
     end
 
     def dump_pending_fixed(example, index)
       output.puts "#{short_padding}#{index.next}) #{example.full_description} FIXED"
-      output.puts fixed_color("#{long_padding}Expected pending '#{example.execution_result.pending_message}' to fail. No Error was raised.")
+      output.puts fixed_color("#{long_padding}Expected pending '#{example.description}' to fail. No Error was raised.")
     end
 
     def dump_summary(*args)
