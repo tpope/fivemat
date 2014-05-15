@@ -1,74 +1,66 @@
-require 'rspec/core/formatters/base_text_formatter'
+require 'rspec/core/formatters/console_codes'
 
 module Fivemat
-  class RSpec3 < ::RSpec::Core::Formatters::BaseTextFormatter
+  class RSpec3
     include ElapsedTime
 
     # See fivemat.rb for formatter registration.
+    attr_reader :output, :failed_notifications
 
     def initialize(output)
-      super(output)
+      @output = output
       @group_level = 0
       @index_offset = 0
-      @cumulative_failed_examples = []
-      @failed_examples = []
+      @failed_notifications = []
     end
 
+    Color = ::RSpec::Core::Formatters::ConsoleCodes
+
     def example_passed(notification)
-      output.print success_color('.')
+      output.print Color.wrap('.', :success)
     end
 
     def example_pending(notification)
-      super
-      output.print pending_color('*')
+      output.print Color.wrap('*', :pending)
     end
 
-    def example_failed(event)
-      super
-      output.print failure_color('F')
+    def example_failed(notification)
+      @failed_notifications << notification
+      output.print Color.wrap('F', :failure)
     end
 
     def example_group_started(event)
       if @group_level.zero?
         output.print "#{event.group.description} "
-        @failure_output = []
         @start_time = Time.now
       end
+
       @group_level += 1
     end
 
     def example_group_finished(event)
       @group_level -= 1
+
       if @group_level.zero?
         print_elapsed_time output, @start_time
         output.puts
 
-        failed_examples.each_with_index do |example, index|
-          if pending_fixed?(example)
-            dump_pending_fixed(example, @index_offset + index)
-          else
-            dump_failure(example, @index_offset + index)
-          end
-          dump_backtrace(example)
+        failed_notifications.each_with_index do |failure, index|
+          output.puts failure.fully_formatted(@index_offset + index + 1)
         end
-        @index_offset += failed_examples.size
-        @cumulative_failed_examples += failed_examples
-        failed_examples.clear
+
+        @index_offset += failed_notifications.size
+        failed_notifications.clear
       end
     end
 
-    def pending_fixed?(example)
-      example.execution_result.pending_fixed?
+    def dump_summary(summary)
+      output.puts summary.fully_formatted
     end
 
-    def dump_pending_fixed(example, index)
-      output.puts "#{short_padding}#{index.next}) #{example.full_description} FIXED"
-      output.puts fixed_color("#{long_padding}Expected pending '#{example.execution_result.pending_message}' to fail. No Error was raised.")
-    end
-
-    def dump_summary(*args)
-      @failed_examples = @cumulative_failed_examples
-      super
+    def seed(notification)
+      return unless notification.seed_used?
+      output.puts notification.fully_formatted
     end
   end
 end
