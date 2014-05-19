@@ -21,8 +21,8 @@ module Fivemat
       :example_failed,
       :example_group_started,
       :example_group_finished,
-      :dump_pending_fixed,
-      :dump_summary
+      :dump_summary,
+      :seed
   end
 
   def self.new(*args)
