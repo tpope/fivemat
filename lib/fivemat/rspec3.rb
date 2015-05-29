@@ -62,5 +62,9 @@ module Fivemat
       return unless notification.seed_used?
       output.puts notification.fully_formatted
     end
+
+    def message(notification)
+      output.puts notification.message
+    end
   end
 end
