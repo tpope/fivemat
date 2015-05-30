@@ -22,7 +22,8 @@ module Fivemat
       :example_group_started,
       :example_group_finished,
       :dump_summary,
-      :seed
+      :seed,
+      :message
   end
 
   def self.new(*args)
