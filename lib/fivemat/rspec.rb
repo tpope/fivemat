@@ -43,6 +43,9 @@ module Fivemat
     def pending_fixed?(example)
       if example.execution_result[:exception].respond_to?(:pending_fixed?)
         example.execution_result[:exception].pending_fixed?
+      elsif defined?(::RSpec::Core::Pending::PendingExampleFixedError)
+        # RSpec 2.99.2 compatibility
+        ::RSpec::Core::Pending::PendingExampleFixedError == example.execution_result[:exception]
       else
         ::RSpec::Core::PendingExampleFixedError === example.execution_result[:exception]
       end
