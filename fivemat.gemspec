@@ -12,5 +12,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = "fivemat"
   gem.require_paths = ["lib"]
-  gem.version       = '1.3.1'
+  gem.version       = '1.3.2'
 end
