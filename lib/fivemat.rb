@@ -26,6 +26,22 @@ module Fivemat
       :message
   end
 
+  def cucumber2?
+    defined?(::Cucumber) && ::Cucumber::VERSION >= '2.0.0'
+  end
+  module_function :cucumber2?
+
+  if cucumber2?
+    def self.instance_method(symbol)
+      case symbol
+      when :initialize
+        Cucumber.instance_method(symbol)
+      else
+        super
+      end
+    end
+  end
+
   def self.new(*args)
     case args.size
     when 0 then MiniTest::Unit
