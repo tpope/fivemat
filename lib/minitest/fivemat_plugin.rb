@@ -5,7 +5,7 @@ module Minitest
     include ElapsedTime
 
     def record(result)
-      if @class != result.class
+      if defined?(@class) && @class != result.class
         if @class
           print_elapsed_time(io, @class_start_time)
           io.print "\n"
@@ -18,7 +18,7 @@ module Minitest
 
     def report
       super
-      print_elapsed_time(io, @class_start_time) if @class_start_time
+      print_elapsed_time(io, @class_start_time) if defined? @class_start_time
     end
   end
 
