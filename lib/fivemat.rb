@@ -7,6 +7,17 @@ module Fivemat
   autoload :RSpec3, 'fivemat/rspec3'
   autoload :Spec, 'fivemat/spec'
 
+  def cucumber2?
+    defined?(::Cucumber) && ::Cucumber::VERSION >= '2.0.0'
+  end
+  module_function :cucumber2?
+
+  if cucumber2?
+    # Cucumber 2 detects the formatter API based on initialize arity
+    def initialize(runtime, path_or_io, options)
+    end
+  end
+
   def rspec3?
     defined?(::RSpec::Core) && ::RSpec::Core::Version::STRING >= '3.0.0'
   end
