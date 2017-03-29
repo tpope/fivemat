@@ -47,7 +47,7 @@ module Fivemat
         # RSpec 2.99.2 compatibility
         ::RSpec::Core::Pending::PendingExampleFixedError == example.execution_result[:exception]
       else
-        ::RSpec::Core::PendingExampleFixedError === example.execution_result[:exception]
+        ::RSpec::Core::Pending::PendingExampleFixedError === example.execution_result[:exception]
       end
     end
 
