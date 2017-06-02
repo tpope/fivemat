@@ -13,6 +13,9 @@ module Fivemat
     end
 
     def color
+      unless defined?(::RSpec::Core::Formatters::ConsoleCodes)
+        require 'rspec/core/formatters/console_codes'
+      end
       ::RSpec::Core::Formatters::ConsoleCodes
     end
 
