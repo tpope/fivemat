@@ -1,5 +1,3 @@
-require 'rspec/core/formatters/console_codes'
-
 module Fivemat
   class RSpec3
     include ElapsedTime
@@ -14,19 +12,21 @@ module Fivemat
       @failed_notifications = []
     end
 
-    Color = ::RSpec::Core::Formatters::ConsoleCodes
+    def color
+      ::RSpec::Core::Formatters::ConsoleCodes
+    end
 
     def example_passed(notification)
-      output.print Color.wrap('.', :success)
+      output.print color.wrap('.', :success)
     end
 
     def example_pending(notification)
-      output.print Color.wrap('*', :pending)
+      output.print color.wrap('*', :pending)
     end
 
     def example_failed(notification)
       @failed_notifications << notification
-      output.print Color.wrap('F', :failure)
+      output.print color.wrap('F', :failure)
     end
 
     def example_group_started(event)
