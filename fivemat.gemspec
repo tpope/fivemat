@@ -13,4 +13,5 @@ Gem::Specification.new do |gem|
   gem.name          = "fivemat"
   gem.require_paths = ["lib"]
   gem.version       = '1.3.5'
+  gem.license       = 'MIT'
 end
