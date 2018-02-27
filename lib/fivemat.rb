@@ -40,7 +40,11 @@ module Fivemat
         RSpec
       end
     when 2 then Spec
-    when 3 then Cucumber
+    when 3
+      if ::Cucumber::VERSION >= '3'
+        abort "Fivemat does not yet support Cucumber 3"
+      end
+      Cucumber
     else
       raise ArgumentError
     end.new(*args)
