@@ -4,13 +4,12 @@ module Fivemat
   class Cucumber < ::Cucumber::Formatter::Progress
     include ElapsedTime
 
-    def label(feature)
-      feature.short_name
+    def feature_name(keyword, name)
+      @io.print "#{name.sub(/^\s*/, '').split("\n").first} "
+      @io.flush
     end
 
     def before_feature(feature)
-      @io.print "#{label(feature)} "
-      @io.flush
       @exceptions = []
       @start_time = Time.now
     end
