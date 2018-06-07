@@ -4,13 +4,18 @@ module Minitest
   class FivematReporter < Reporter
     include ElapsedTime
 
+    def initialize(*args)
+      super
+      @class = nil
+    end
+
     def record(result)
-      if defined?(@class) && @class != result.class
+      if @class != result.klass
         if @class
           print_elapsed_time(io, @class_start_time)
           io.print "\n"
         end
-        @class = result.class
+        @class = result.klass
         @class_start_time = Time.now
         io.print "#@class "
       end
