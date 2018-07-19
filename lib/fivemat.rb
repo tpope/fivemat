@@ -2,13 +2,24 @@ require 'fivemat/elapsed_time'
 
 module Fivemat
   autoload :Cucumber, 'fivemat/cucumber'
+  autoload :Cucumber3, 'fivemat/cucumber3'
   autoload :MiniTest, 'fivemat/minitest/unit'
   autoload :RSpec, 'fivemat/rspec'
   autoload :RSpec3, 'fivemat/rspec3'
   autoload :Spec, 'fivemat/spec'
 
-  # Cucumber 2 detects the formatter API based on initialize arity
-  def initialize(runtime, path_or_io, options)
+  def cucumber3?
+    defined?(::Cucumber) && ::Cucumber::VERSION >= '3'
+  end
+  module_function :cucumber3?
+
+  # Cucumber detects the formatter API based on initialize arity
+  if cucumber3?
+    def initialize(config)
+    end
+  else
+    def initialize(runtime, path_or_io, options)
+    end
   end
 
   def rspec3?
@@ -34,16 +45,15 @@ module Fivemat
     case args.size
     when 0 then MiniTest::Unit
     when 1 then
-      if rspec3?
+      if args.first.class.to_s == "Cucumber::Configuration"
+        Cucumber3
+      elsif rspec3?
         RSpec3
       else
         RSpec
       end
     when 2 then Spec
     when 3
-      if ::Cucumber::VERSION >= '3'
-        abort "Fivemat does not yet support Cucumber 3"
-      end
       Cucumber
     else
       raise ArgumentError
