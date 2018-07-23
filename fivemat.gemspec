@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |gem|
   gem.name          = "fivemat"
-  gem.version       = "1.3.6"
+  gem.version       = "1.3.7"
   gem.authors       = ["Tim Pope"]
   gem.email         = ["code@tp" + 'ope.net']
   gem.description   = %q{MiniTest/RSpec/Cucumber formatter that gives each test file its own line of dots}
